@@ -3,6 +3,7 @@ package com.github.leafee98.CSTI.core.utils;
 import java.time.LocalTime;
 
 public class LocalTimeRange {
+
     public LocalTime from;
     public LocalTime to;
 

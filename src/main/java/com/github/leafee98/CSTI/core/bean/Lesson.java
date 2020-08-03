@@ -1,6 +1,7 @@
 package com.github.leafee98.CSTI.core.bean;
 
-public class Lesson { 
+public class Lesson {
+
     private String name;
     private String type;
     private String teacher;

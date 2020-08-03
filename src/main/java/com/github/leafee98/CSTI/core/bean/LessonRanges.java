@@ -14,14 +14,15 @@ import com.github.leafee98.CSTI.core.utils.LocalTimeRange;
 
 public class LessonRanges {
 
-    private ArrayList<LocalTimeRange> ranges;
+    private final ArrayList<LocalTimeRange> ranges;
 
     /**
      * @param scheduleStr should like the follows, the whitespaces will not be
      *                    checked there:
      *                    1=01:00:00-01:40:00,2=02:02:30-02:50:25,3=22:59:59-23:00:00
-     * 
+     *
      * @return a LessonRanges object generated from {@code scheduleStr}
+     *
      * @throws InvalidLessonRange
      */
     public static LessonRanges load(String scheduleStr) {
@@ -39,7 +40,7 @@ public class LessonRanges {
             }
 
             try {
-                int lessonIndex = Integer.valueOf(components[0]);
+                int lessonIndex = Integer.parseInt(components[0]);
                 LocalTime from = LocalTime.parse(components[1]);
                 LocalTime to = LocalTime.parse(components[2]);
 
@@ -47,7 +48,8 @@ public class LessonRanges {
             } catch (NumberFormatException e) {
                 throw new InvalidLessonRange("lesson index is not a valid number: " + components[0], e);
             } catch (DateTimeParseException e) {
-                throw new InvalidLessonRange("lesson range time is not a valid time: " + components[1] + '-' + components[2], e);
+                throw new InvalidLessonRange("lesson range time is not a valid time: "
+                        + components[1] + '-' + components[2], e);
             }
         }
 
@@ -56,9 +58,8 @@ public class LessonRanges {
             throw new InvalidLessonRange("the lesson indexes are not from 1 to n");
         }
 
-        for (int lessonIndex : map.keySet()) {
+        for (int lessonIndex : map.keySet())
             lr.addRange(map.get(lessonIndex));
-        }
 
         return lr;
     }
