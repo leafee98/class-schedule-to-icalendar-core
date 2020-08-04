@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import com.github.leafee98.CSTI.core.bean.LessonRanges;
-import com.github.leafee98.CSTI.core.utils.LocalTimeRange;
+import com.github.leafee98.CSTI.core.bean.LocalTimeRange;
 
 public class LocalTimeRangeTest {
 

@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.github.leafee98.CSTI.core.exceptions.InvalidLessonRange;
-import com.github.leafee98.CSTI.core.utils.LocalTimeRange;
 
 public class LessonRanges {
 
