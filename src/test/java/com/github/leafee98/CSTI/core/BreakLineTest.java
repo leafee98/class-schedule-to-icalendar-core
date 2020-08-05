@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class BreakLineTest {
+
     String done = "event-prefix:课-\n"
             + "timezone:+08:00\n"
             + "first-day-of-week:0\n"
@@ -59,4 +60,5 @@ public class BreakLineTest {
     public void testRecovery() {
         Assertions.assertEquals(origin, BreakLine.recovery(done));
     }
+
 }

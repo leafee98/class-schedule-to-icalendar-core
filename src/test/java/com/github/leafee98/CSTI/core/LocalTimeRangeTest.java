@@ -45,4 +45,5 @@ public class LocalTimeRangeTest {
 
         Assertions.assertEquals(lessonRangeStr, lr.toString());
     }
+
 }

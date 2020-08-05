@@ -64,7 +64,7 @@ public class LessonRanges {
     }
 
     public LessonRanges() {
-        this.ranges = new ArrayList<LocalTimeRange>();
+        this.ranges = new ArrayList<>();
     }
 
     public void addRange(LocalTimeRange t) {

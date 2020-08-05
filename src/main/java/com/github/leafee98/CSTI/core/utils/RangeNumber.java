@@ -9,6 +9,11 @@ import java.util.stream.IntStream;
 
 public class RangeNumber {
 
+    /**
+     * convert "1,2,5-7" to [1,2,5,6,7]
+     * @param str string like "1,2,5-7"
+     * @return List of Integer like [1,2,5,6,7]
+     */
     public static List<Integer> parse(String str) {
         Set<Integer> result = new HashSet<>();
 
@@ -27,6 +32,11 @@ public class RangeNumber {
         return new ArrayList<>(result);
     }
 
+    /**
+     * convert  [1,2,5,6,7] to "1,2,5-7".
+     * @param arr  List of Integer like [1,2,5,6,7]
+     * @return string like "1,2,5-7"
+     */
     public static String render(List<Integer> arr) {
         int front = arr.get(0);
         int back = front;
@@ -37,34 +47,24 @@ public class RangeNumber {
             if (arr.get(i - 1).equals(arr.get(i) - 1)) {
                 back = arr.get(i);
             } else {
-                builder.append(front);
-                builder.append('-');
+                if (front != back) {
+                    builder.append(front);
+                    builder.append('-');
+                }
                 builder.append(back);
                 builder.append(',');
-                // for (int x = front; x <= back; ++x) {
-                //     builder.append(x);
-                //     builder.append(',');
-                // }
-                front = arr.get(i);
+                back = front = arr.get(i);
             }
         }
 
-        if (back == arr.get(arr.size() - 1)) {
+        if (front != back) {
             builder.append(front);
             builder.append('-');
-            builder.append(back);
-            builder.append(',');
-            // for (int x = front; x <= back; ++x) {
-            //     builder.append(x);
-            //     builder.append(',');
-            // }
-        } else {
-            builder.append(front);
-            builder.append(',');
         }
+        builder.append(back);
+        builder.append(',');
 
         return builder.substring(0, builder.length() - 1);
-
     }
 
 }
