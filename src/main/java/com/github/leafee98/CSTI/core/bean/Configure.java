@@ -1,4 +1,4 @@
-package com.github.leafee98.CSTI.core.configure;
+package com.github.leafee98.CSTI.core.bean;
 
 import java.time.ZoneOffset;
 import java.util.List;

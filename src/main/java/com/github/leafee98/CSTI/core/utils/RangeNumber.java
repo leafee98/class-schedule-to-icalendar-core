@@ -65,4 +65,35 @@ public class RangeNumber {
         return builder.substring(0, builder.length() - 1);
     }
 
+    /**
+     * convert  [1,2,5,6,7] to [{1},{2},{5,7}].
+     * @param arr  List of Integer like [1,2,5,6,7]
+     * @return string like [{1},{2},{5,7}]
+     */
+    public static List<PairNumber> renderToPair(List<Integer> arr) {
+        List<PairNumber> result = new ArrayList<>();
+        int front, back;
+        back = front = arr.get(0);
+        for (int i = 1; i < arr.size(); ++i) {
+            if (arr.get(i - 1).equals(arr.get(i) - 1)) {
+                back = arr.get(i);
+            } else {
+                if (front != back) {
+                    result.add(new PairNumber(front, back));
+                } else {
+                    result.add(new PairNumber(front));
+                }
+                back = front = arr.get(i);
+            }
+        }
+
+        if (front != back) {
+            result.add(new PairNumber(front, back));
+        } else {
+            result.add(new PairNumber(front, front));
+        }
+
+        return result;
+    }
+
 }

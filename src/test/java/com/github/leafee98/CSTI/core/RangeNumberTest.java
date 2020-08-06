@@ -35,4 +35,13 @@ public class RangeNumberTest {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    public void testRenderToPair() {
+        String expected = "[{1,3}, {5}, {7,10}, {19}]";
+        String input = "1,2,3,5,7,8,9,10,19";
+
+        String actual = RangeNumber.renderToPair(RangeNumber.parse(input)).toString();
+        Assertions.assertEquals(expected, actual);
+    }
+
 }
