@@ -24,10 +24,12 @@ public class LessonSchedule {
 
             String[] components = scheduleStr.split("\\|");
 
-            if (components.length != 3) {
+            if (components.length != 3)
                 throw new InvalidLessonSchedule("there should be 3 components (weeks, dayOfWeek, lessons)" +
                         " in a schedule description: " + scheduleStr);
-            }
+
+            for (int i = 0; i < 3; ++i)
+                components[i] = components[i].trim();
 
             LessonSchedule schedule = new LessonSchedule();
             schedule.setWeeks(RangeNumber.parse(components[0]));

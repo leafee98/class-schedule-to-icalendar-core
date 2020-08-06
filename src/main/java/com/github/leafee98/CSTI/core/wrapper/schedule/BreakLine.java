@@ -5,7 +5,7 @@ import com.github.leafee98.CSTI.core.configure.KeyWords;
 public class BreakLine {
 
     /**
-     * make lessonSchedule and lessonRanges output more friendly
+     * Make lessonSchedule and lessonRanges output more friendly.
      * @param input Cschedule configuration without break line
      * @return formatted configuration
      */
@@ -47,7 +47,10 @@ public class BreakLine {
     }
 
     /**
-     * undo the break line to simplify parsing Cschedule.
+     * Undo the break line to simplify parsing Cschedule.
+     * The first space character will be ignored is it is at the first line.
+     * (The trailing space characters will be kept.)
+     * (Will append a blank line at the end.)
      * @param input Cschedule configuration with break line
      * @return string without break line.
      */
@@ -56,8 +59,8 @@ public class BreakLine {
         String[] lines = input.split("\n");
         for (String line : lines) {
             // remove the trailing spaces
-            line = line.replaceAll("\\s+$", "");
-            if (line.length() == 0)
+            String verifyBlankLine = line.replaceAll("\\s+$", "");
+            if (verifyBlankLine.length() == 0)
                 continue;
 
             if (line.startsWith(" ")) {

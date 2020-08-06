@@ -4,12 +4,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.github.leafee98.CSTI.core.exceptions.InvalidLessonRange;
+import com.github.leafee98.CSTI.core.utils.LocalTimeRange;
 
 public class LessonRanges {
 
@@ -31,12 +33,16 @@ public class LessonRanges {
         String[] list = scheduleStr.split(",");
 
         for (String str : list) {
+            str = str.trim();
             // str: 1=01:00:00-01:40:00
             String[] components = str.split("[=-]");
 
             if (components.length != 3) {
                 throw new InvalidLessonRange("invalid description of lesson range: " + str);
             }
+
+            for (int i = 0; i < 3; ++i)
+                components[i] = components[i].trim();
 
             try {
                 int lessonIndex = Integer.parseInt(components[0]);

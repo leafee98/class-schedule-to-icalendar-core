@@ -20,15 +20,15 @@ public class Lesson {
 
         for (String line : lines) {
             if (line.startsWith(KeyWords.lessonName)) {
-                result.setName(line.substring(KeyWords.lessonName.length() + 1));
+                result.setName(line.substring(KeyWords.lessonName.length() + 1).trim());
             } else if (line.startsWith(KeyWords.lessonType)) {
-                result.setType(line.substring(KeyWords.lessonType.length() + 1));
+                result.setType(line.substring(KeyWords.lessonType.length() + 1).trim());
             } else if (line.startsWith(KeyWords.lessonTeacher)) {
-                result.setTeacher(line.substring(KeyWords.lessonTeacher.length() + 1));
+                result.setTeacher(line.substring(KeyWords.lessonTeacher.length() + 1).trim());
             } else if (line.startsWith(KeyWords.lessonLocation)) {
-                result.setLocation(line.substring(KeyWords.lessonLocation.length() + 1));
+                result.setLocation(line.substring(KeyWords.lessonLocation.length() + 1).trim());
             } else if (line.startsWith(KeyWords.lessonRemark)) {
-                result.setRemark(line.substring(KeyWords.lessonRemark.length() + 1));
+                result.setRemark(line.substring(KeyWords.lessonRemark.length() + 1).trim());
             } else if (line.startsWith(KeyWords.lessonSchedule)) {
                 result.setSchedule(LessonSchedule.load(line.substring(KeyWords.lessonSchedule.length() + 1)));
             }

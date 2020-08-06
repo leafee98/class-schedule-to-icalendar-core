@@ -1,4 +1,4 @@
-package com.github.leafee98.CSTI.core.bean;
+package com.github.leafee98.CSTI.core.utils;
 
 import java.time.LocalTime;
 

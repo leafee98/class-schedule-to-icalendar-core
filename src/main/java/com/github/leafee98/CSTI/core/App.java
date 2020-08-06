@@ -3,7 +3,7 @@ package com.github.leafee98.CSTI.core;
 import java.time.LocalTime;
 
 import com.github.leafee98.CSTI.core.bean.LessonRanges;
-import com.github.leafee98.CSTI.core.bean.LocalTimeRange;
+import com.github.leafee98.CSTI.core.utils.LocalTimeRange;
 
 public class App {
 
