@@ -1,21 +1,19 @@
 package com.github.leafee98.CSTI.core.utils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class RangeNumber {
 
     /**
-     * convert "1,2,5-7" to [1,2,5,6,7]
+     * convert "1,2,5-7" to [1,2,5,6,7].
+     * (will sort elements in Set).
      * @param str string like "1,2,5-7"
      * @return List of Integer like [1,2,5,6,7]
      */
     public static List<Integer> parse(String str) {
-        Set<Integer> result = new HashSet<>();
+        Set<Integer> result = new TreeSet<>();
 
         String[] numbs = str.split(",");
         for (String n : numbs) {
