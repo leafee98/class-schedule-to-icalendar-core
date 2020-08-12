@@ -1,17 +1,14 @@
 package com.github.leafee98.CSTI.core.bean;
 
 import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import com.github.leafee98.CSTI.core.configure.KeyWords;
 
-import javax.swing.text.DateFormatter;
-
 public class Configure {
 
     private String eventPrefix;
-    private ZoneOffset timezone;
+    private String timezone;
     private int firstDayOfWeek;
     private LocalDate semesterStartDate;
     private LessonRanges lessonRanges;
@@ -34,8 +31,7 @@ public class Configure {
                 result.setSemesterStartDate(
                         LocalDate.parse(line.substring(KeyWords.semesterStartDate.length() + 1).trim()));
             } else if (line.startsWith(KeyWords.timezone)) {
-                String remain = line.substring(KeyWords.timezone.length() + 1).trim();
-                result.setTimezone(ZoneOffset.of(remain));
+                result.setTimezone(line.substring(KeyWords.timezone.length() + 1).trim());
             } else if (line.startsWith(KeyWords.lessonRanges)) {
                 String remain = line.substring(KeyWords.lessonRanges.length() + 1).trim();
                 result.setLessonRanges(LessonRanges.load(remain));
@@ -50,7 +46,7 @@ public class Configure {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         return KeyWords.eventPrefix + ":" + getEventPrefix() + '\n'
-                + KeyWords.timezone + ':' + getTimezone().toString() + '\n'
+                + KeyWords.timezone + ':' + getTimezone() + '\n'
                 + KeyWords.firstDayOfWeek + ':' + getFirstDayOfWeek() + '\n'
                 + KeyWords.semesterStartDate + ':' + getSemesterStartDate().format(formatter) + '\n'
                 + KeyWords.lessonRanges + ':' + getLessonRanges().toString();
@@ -65,11 +61,11 @@ public class Configure {
         this.eventPrefix = eventPrefix;
     }
 
-    public ZoneOffset getTimezone() {
+    public String getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(ZoneOffset timezone) {
+    public void setTimezone(String timezone) {
         this.timezone = timezone;
     }
 

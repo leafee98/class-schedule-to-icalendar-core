@@ -15,4 +15,9 @@ public class KeyWords {
     public static final String semesterStartDate = "semester-start-date";
     public static final String lessonRanges = "lesson-ranges";
 
+    public static final String confBegin = "[[[";
+    public static final String confEnd = "]]]";
+    public static final String lessonBegin = "<<<";
+    public static final String lessonEnd = ">>>";
+
 }

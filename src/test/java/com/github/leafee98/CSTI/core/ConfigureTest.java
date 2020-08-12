@@ -10,7 +10,7 @@ public class ConfigureTest {
     @Test
     public void testLoad() {
         String expected = "event-prefix:课-\n"
-                + "timezone:+08:00\n"
+                + "timezone:Asia/Shanghai\n"
                 + "first-day-of-week:0\n"
                 + "semester-start-date:2020-02-21\n"
                 + "lesson-ranges:\n"
@@ -27,7 +27,7 @@ public class ConfigureTest {
                 + " 11=19:20:00-20:05:00,\n"
                 + " 12=20:10:00-20:55:00\n";
         String input = "event-prefix:课- \n"
-                + "timezone: +08:00 \n"
+                + "timezone: Asia/Shanghai \n"
                 + "first-day-of-week: 0\n"
                 + "semester-start-date:2020-02-21\n"
                 + "lesson-ranges: \n"
@@ -49,8 +49,6 @@ public class ConfigureTest {
         String directOut = configure.toString();
 
         String finalOut = BreakLine.doBreak(directOut);
-
-        System.out.println(finalOut);
 
         Assertions.assertEquals(expected, finalOut);
     }

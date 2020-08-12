@@ -89,4 +89,5 @@ public class LessonSchedule {
     public void setLessons(List<Integer> lessons) {
         this.lessons = lessons;
     }
+
 }

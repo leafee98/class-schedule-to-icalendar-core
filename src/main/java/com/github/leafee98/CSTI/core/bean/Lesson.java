@@ -40,17 +40,16 @@ public class Lesson {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(
-                "name:" + name
-                + "\ntype:" + type
-                + "\nteacher:" + teacher
-                + "\nremark:" + remark
-                + "\nschedule:"
+                KeyWords.lessonName + ':' + name + '\n'
+                + KeyWords.lessonType + ':' + type + '\n'
+                + KeyWords.lessonTeacher + ':' + teacher + '\n'
+                + KeyWords.lessonLocation + ':' + location + '\n'
+                + KeyWords.lessonRemark + ':' + remark + '\n'
+                + KeyWords.lessonSchedule + ':'
         );
 
         for (LessonSchedule s : schedule)
             builder.append(s);
-
-        builder.append('\n');
 
         return builder.toString();
     }

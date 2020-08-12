@@ -49,7 +49,7 @@ public class BreakLine {
     /**
      * Undo the break line to simplify parsing Cschedule.
      * The first space character will be ignored is it is at the first line.
-     * (The trailing space characters will be kept.)
+     * (The trailing space characters will be kept, for those configuration options like event-name)
      * (Will append a blank line at the end.)
      * @param input Cschedule configuration with break line
      * @return string without break line.
