@@ -1,5 +1,7 @@
 package com.github.leafee98.CSTI.core.ics;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -7,7 +9,7 @@ public class Component {
 
     private final String name;
     private final Map<String, Property> properties = new TreeMap<>();
-    private final Map<String, Component> components = new TreeMap<>();
+    private final List<Component> components = new ArrayList<>();
 
     public Component(String name) {
         this.name = name;
@@ -22,8 +24,8 @@ public class Component {
             builder.append('\n');
         }
 
-        for (Map.Entry<String, Component> entry : components.entrySet()) {
-            builder.append(entry.getValue());
+        for (Component c : components) {
+            builder.append(c);
             builder.append('\n');
         }
 
@@ -36,20 +38,20 @@ public class Component {
         return name;
     }
 
-    public void add(Property p) {
+    public void addProperty(Property p) {
         properties.put(p.getName(), p);
     }
 
-    public void add(Component c) {
-        components.put(c.getName(), c);
+    public void addComponent(Component c) {
+        components.add(c);
     }
 
     public Property getProperty(String name){
         return properties.get(name);
     }
 
-    public Component getComponent(String name) {
-        return components.get(name);
+    public List<Component> getComponents() {
+        return this.components;
     }
 
 }

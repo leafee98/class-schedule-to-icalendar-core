@@ -18,5 +18,10 @@ public class IcsWords {
     public static final String uid = "UID";
     public static final String action = "ACTION";
     public static final String trigger = "TRIGGER";
+    public static final String DURATION = "DURATION";
+    public static final String BEGIN = "BEGIN";
+    public static final String END = "END";
+    public static final String RELATED = "RELATED";
+
 
 }

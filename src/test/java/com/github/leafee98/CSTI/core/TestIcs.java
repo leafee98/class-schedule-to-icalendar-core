@@ -34,9 +34,9 @@ public class TestIcs {
         trigger.setValue(new Value("20210103T080000Z"));
         Property description = new Property("DESCRIPTION", new Value("Default Mozilla Description"));
 
-        c.add(action);
-        c.add(trigger);
-        c.add(description);
+        c.addProperty(action);
+        c.addProperty(trigger);
+        c.addProperty(description);
 
         String expected =
                 "BEGIN:VALARM\n" +
@@ -75,27 +75,27 @@ public class TestIcs {
                 "END:VEVENT";
 
         Component alarm = new Component("VALARM");
-        alarm.add(new Property("ACTION", new Value("DISPLAY")));
-        alarm.add(new Property("TRIGGER", new Value("-PT15M"), "VALUE", "DURATION"));
-        alarm.add(new Property("DESCRIPTION", new Value("Default Mozilla Description")));
+        alarm.addProperty(new Property("ACTION", new Value("DISPLAY")));
+        alarm.addProperty(new Property("TRIGGER", new Value("-PT15M"), "VALUE", "DURATION"));
+        alarm.addProperty(new Property("DESCRIPTION", new Value("Default Mozilla Description")));
 
         Component event = new Component("VEVENT");
-        event.add(alarm);
-        event.add(new Property("CREATED", new Value("20200809T013446Z")));
-        event.add(new Property("LAST-MODIFIED", new Value("20200809T013819Z")));
-        event.add(new Property("DTSTAMP", new Value("20200809T013819Z")));
-        event.add(new Property("UID", new Value("fa3aa1a0-6209-4b71-aa87-a3ac9a32ec1c")));
-        event.add(new Property("SUMMARY", new Value("重复事件")));
-        event.add(new Property("RRULE",
+        event.addComponent(alarm);
+        event.addProperty(new Property("CREATED", new Value("20200809T013446Z")));
+        event.addProperty(new Property("LAST-MODIFIED", new Value("20200809T013819Z")));
+        event.addProperty(new Property("DTSTAMP", new Value("20200809T013819Z")));
+        event.addProperty(new Property("UID", new Value("fa3aa1a0-6209-4b71-aa87-a3ac9a32ec1c")));
+        event.addProperty(new Property("SUMMARY", new Value("重复事件")));
+        event.addProperty(new Property("RRULE",
                 new Value("", "FREQ", "WEEKLY" ,"UNTIL", "20210301T000000Z")));
-        event.add(new Property("DTSTART", new Value("20210101T080000"), "TZID", "Asia/Shanghai"));
-        event.add(new Property("DTEND", new Value("20210101T090000"), "TZID", "Asia/Shanghai"));
-        event.add(new Property("TRANSP", new Value("OPAQUE")));
-        event.add(new Property("LOCATION", new Value("地点")));
-        event.add(new Property("DESCRIPTION", new Value("重复事件\\n地点\\n2021年1月1日每周重复直到2021年" +
+        event.addProperty(new Property("DTSTART", new Value("20210101T080000"), "TZID", "Asia/Shanghai"));
+        event.addProperty(new Property("DTEND", new Value("20210101T090000"), "TZID", "Asia/Shanghai"));
+        event.addProperty(new Property("TRANSP", new Value("OPAQUE")));
+        event.addProperty(new Property("LOCATION", new Value("地点")));
+        event.addProperty(new Property("DESCRIPTION", new Value("重复事件\\n地点\\n2021年1月1日每周重复直到2021年" +
                 "3月1日\\n(2021年1月1日为周五)\\n提醒时间为15分钟前")));
-        event.add(new Property("SEQUENCE", new Value("2")));
-        event.add(new Property("X-MOZ-GENERATION", new Value("2")));
+        event.addProperty(new Property("SEQUENCE", new Value("2")));
+        event.addProperty(new Property("X-MOZ-GENERATION", new Value("2")));
 
         Assertions.assertEquals(expected, event.toString());
     }
