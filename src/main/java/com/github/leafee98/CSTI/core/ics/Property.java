@@ -31,6 +31,10 @@ public class Property {
         }
     }
 
+    public boolean isEmpty() {
+        return value.isEmpty();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(name);

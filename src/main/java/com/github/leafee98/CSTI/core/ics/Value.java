@@ -29,6 +29,10 @@ public class Value {
         }
     }
 
+    public boolean isEmpty() {
+        return value.length() == 0 && parameters.isEmpty();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
