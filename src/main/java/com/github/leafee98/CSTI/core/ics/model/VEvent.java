@@ -13,15 +13,19 @@ public class VEvent extends Component {
     public static final String DTSTART = "DTSTART";
     public static final String DTEND = "DTEND";
     public static final String TRANSP = "TRANSP";
+    public static final String LOCATION = "LOCATION";
+    public static final String DESCRIPTION = "DESCRIPTION";
 
     public final Property created = new Property(CREATED);
     public final Property lastModified = new Property(LAST_MODIFIED);
-    public final Property dtStamp = new Property(DTSTART);
+    public final Property dtStamp = new Property(DTSTAMP);
     public final Property uid = new Property(UID);
     public final Property summary = new Property(SUMMARY);
     public final Property dtStart = new Property(DTSTART);
     public final Property dtEnd = new Property(DTEND);
     public final Property transp = new Property(TRANSP);
+    public final Property location = new Property(LOCATION);
+    public final Property description = new Property(DESCRIPTION);
 
     public VEvent() {
         super("VEVENT");
@@ -59,6 +63,15 @@ public class VEvent extends Component {
         return transp;
     }
 
+    public Property getLocation() {
+        return location;
+    }
+
+    public Property getDescription() {
+        return description;
+    }
+
+
     public boolean isEmpty() {
         return created.isEmpty()
                 && lastModified.isEmpty()
@@ -67,7 +80,9 @@ public class VEvent extends Component {
                 && summary.isEmpty()
                 && dtStart.isEmpty()
                 && dtEnd.isEmpty()
-                && transp.isEmpty();
+                && transp.isEmpty()
+                && location.isEmpty()
+                && description.isEmpty();
     }
 
     @Override
@@ -84,6 +99,8 @@ public class VEvent extends Component {
         if (! summary.isEmpty()) builder.append(summary.toString()).append('\n');
         if (! dtStart.isEmpty()) builder.append(dtStart.toString()).append('\n');
         if (! dtEnd.isEmpty()) builder.append(dtEnd.toString()).append('\n');
+        if (! location.isEmpty()) builder.append(location.toString()).append('\n');
+        if (! description.isEmpty()) builder.append(description.toString()).append('\n');
         if (! transp.isEmpty()) builder.append(transp.toString()).append('\n');
 
         builder.append("END:").append(getName());
