@@ -37,4 +37,8 @@ public class TimeFormatter {
         return formatter.format(dateTime);
     }
 
+    public String offset(ZoneOffset offset) {
+        return offset.toString().replace(":", "");
+    }
+
 }

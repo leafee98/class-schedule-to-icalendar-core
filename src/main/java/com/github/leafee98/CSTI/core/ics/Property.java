@@ -68,6 +68,10 @@ public class Property {
         return value;
     }
 
+    public void setValue(String value) {
+        this.setValue(new Value(value));
+    }
+
     public void setValue(Value value) {
         this.value = value;
     }

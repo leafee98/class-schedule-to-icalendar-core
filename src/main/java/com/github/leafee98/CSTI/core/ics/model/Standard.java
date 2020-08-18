@@ -37,7 +37,7 @@ public class Standard extends Component {
         return dtStart;
     }
 
-    public Property getrRule() {
+    public Property getRRule() {
         return rRule;
     }
 

@@ -1,14 +1,17 @@
 package com.github.leafee98.CSTI.core.bean;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.zone.ZoneRulesException;
 
 import com.github.leafee98.CSTI.core.configure.KeyWords;
+import com.github.leafee98.CSTI.core.exceptions.InvalidConfigure;
 
 public class Configure {
 
     private String eventPrefix;
-    private String timezone;
+    private ZoneId timezone;
     private int firstDayOfWeek;
     private LocalDate semesterStartDate;
     private LessonRanges lessonRanges;
@@ -31,7 +34,13 @@ public class Configure {
                 result.setSemesterStartDate(
                         LocalDate.parse(line.substring(KeyWords.semesterStartDate.length() + 1).trim()));
             } else if (line.startsWith(KeyWords.timezone)) {
-                result.setTimezone(line.substring(KeyWords.timezone.length() + 1).trim());
+                try {
+                    ZoneId id = ZoneId.of(line.substring(KeyWords.timezone.length() + 1).trim());
+                    result.setTimezone(id);
+                } catch (ZoneRulesException e) {
+                    throw new InvalidConfigure("timezone must be region format, follows are available:\n"
+                            + ZoneId.getAvailableZoneIds());
+                }
             } else if (line.startsWith(KeyWords.lessonRanges)) {
                 String remain = line.substring(KeyWords.lessonRanges.length() + 1).trim();
                 result.setLessonRanges(LessonRanges.load(remain));
@@ -61,11 +70,11 @@ public class Configure {
         this.eventPrefix = eventPrefix;
     }
 
-    public String getTimezone() {
+    public ZoneId getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(String timezone) {
+    public void setTimezone(ZoneId timezone) {
         this.timezone = timezone;
     }
 

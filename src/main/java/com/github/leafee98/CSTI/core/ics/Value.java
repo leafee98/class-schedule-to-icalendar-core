@@ -2,13 +2,18 @@ package com.github.leafee98.CSTI.core.ics;
 
 import com.github.leafee98.CSTI.core.exceptions.InvalidComponentParams;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Parameters put in this object will keep its origin order.
+ * Take care of order while putting if you mind it.
+ */
 public class Value {
 
     private String value;
-    private final Map<String, String> parameters = new TreeMap<>();
+    private final Map<String, String> parameters = new LinkedHashMap<>();
 
     public Value() {
         this("");
@@ -43,7 +48,10 @@ public class Value {
             builder.append(';');
         }
         if (value == null || value.length() == 0) {
-            return builder.substring(0, builder.length() - 1);
+            if (builder.length() > 0)
+                return builder.substring(0, builder.length() - 1);
+            else
+                return "";
         } else {
             builder.append(value);
             return builder.toString();

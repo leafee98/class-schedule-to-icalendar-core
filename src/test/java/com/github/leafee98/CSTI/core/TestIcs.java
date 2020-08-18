@@ -8,96 +8,34 @@ import org.junit.jupiter.api.Test;
 
 public class TestIcs {
 
-    @Test
-    public void testProperty1() {
-        Property p = new Property("DTSTART", new Value("20210103"));
-        p.putParameter("VALUE", "DATE");
+    String expected1 = "BEGIN:VEVENT\n" +
+            "CREATED:20200809T013446Z\n" +
+            "DESCRIPTION:重复事件\\n地点\\n2021年1月1日每周重复直到2021年" +
+            "3月1日\\n(2021年1月1日为周五)\\n提醒时间为15分钟前\n" +
+            "DTEND;TZID=Asia/Shanghai:20210101T090000\n" +
+            "DTSTAMP:20200809T013819Z\n" +
+            "DTSTART;TZID=Asia/Shanghai:20210101T080000\n" +
+            "LAST-MODIFIED:20200809T013819Z\n" +
+            "LOCATION:地点\n" +
+            "RRULE:FREQ=WEEKLY;UNTIL=20210301T000000Z\n" +
+            "SEQUENCE:2\n" +
+            "SUMMARY:重复事件\n" +
+            "TRANSP:OPAQUE\n" +
+            "UID:fa3aa1a0-6209-4b71-aa87-a3ac9a32ec1c\n" +
+            "X-MOZ-GENERATION:2\n" +
 
-        Assertions.assertEquals("DTSTART;VALUE=DATE:20210103", p.toString());
-    }
+            "BEGIN:VALARM\n" +
+            "ACTION:DISPLAY\n" +
+            "DESCRIPTION:Default Mozilla Description\n" +
+            "TRIGGER;VALUE=DURATION:-PT15M\n" +
+            "END:VALARM\n" +
+            "END:VEVENT";
 
-    @Test
-    public void testProperty2() {
-        Property p = new Property("ATTENDEE", new Value("mailto:jsmith@example.com"),
-                "RSVP", "TRUE", "ROLE", "REQ-PARTICIPANT");
-        String expected = "ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:" +
-                "jsmith@example.com";
-        Assertions.assertEquals(expected, p.toString());
-    }
-
-    @Test
-    public void testComponent1() {
-        Component c = new Component("VALARM");
-        Property action = new Property("ACTION", new Value("DISPLAY"));
-        Property trigger = new Property("TRIGGER");
-        trigger.putParameter("VALUE", "DATE-TIME");
-        trigger.setValue(new Value("20210103T080000Z"));
-        Property description = new Property("DESCRIPTION", new Value("Default Mozilla Description"));
-
-        c.addProperty(action);
-        c.addProperty(trigger);
-        c.addProperty(description);
-
-        String expected =
-                "BEGIN:VALARM\n" +
-                "ACTION:DISPLAY\n" +
-                "DESCRIPTION:Default Mozilla Description\n" +
-                "TRIGGER;VALUE=DATE-TIME:20210103T080000Z\n" +
-                "END:VALARM";
-
-        Assertions.assertEquals(expected, c.toString());
-    }
-
-    @Test
-    public void testComponent2() {
-        String expected =
-                "BEGIN:VEVENT\n" +
-                "CREATED:20200809T013446Z\n" +
-                "DESCRIPTION:重复事件\\n地点\\n2021年1月1日每周重复直到2021年" +
-                        "3月1日\\n(2021年1月1日为周五)\\n提醒时间为15分钟前\n" +
-                "DTEND;TZID=Asia/Shanghai:20210101T090000\n" +
-                "DTSTAMP:20200809T013819Z\n" +
-                "DTSTART;TZID=Asia/Shanghai:20210101T080000\n" +
-                "LAST-MODIFIED:20200809T013819Z\n" +
-                "LOCATION:地点\n" +
-                "RRULE:FREQ=WEEKLY;UNTIL=20210301T000000Z\n" +
-                "SEQUENCE:2\n" +
-                "SUMMARY:重复事件\n" +
-                "TRANSP:OPAQUE\n" +
-                "UID:fa3aa1a0-6209-4b71-aa87-a3ac9a32ec1c\n" +
-                "X-MOZ-GENERATION:2\n" +
-
-                "BEGIN:VALARM\n" +
-                "ACTION:DISPLAY\n" +
-                "DESCRIPTION:Default Mozilla Description\n" +
-                "TRIGGER;VALUE=DURATION:-PT15M\n" +
-                "END:VALARM\n" +
-                "END:VEVENT";
-
-        Component alarm = new Component("VALARM");
-        alarm.addProperty(new Property("ACTION", new Value("DISPLAY")));
-        alarm.addProperty(new Property("TRIGGER", new Value("-PT15M"), "VALUE", "DURATION"));
-        alarm.addProperty(new Property("DESCRIPTION", new Value("Default Mozilla Description")));
-
-        Component event = new Component("VEVENT");
-        event.addComponent(alarm);
-        event.addProperty(new Property("CREATED", new Value("20200809T013446Z")));
-        event.addProperty(new Property("LAST-MODIFIED", new Value("20200809T013819Z")));
-        event.addProperty(new Property("DTSTAMP", new Value("20200809T013819Z")));
-        event.addProperty(new Property("UID", new Value("fa3aa1a0-6209-4b71-aa87-a3ac9a32ec1c")));
-        event.addProperty(new Property("SUMMARY", new Value("重复事件")));
-        event.addProperty(new Property("RRULE",
-                new Value("", "FREQ", "WEEKLY" ,"UNTIL", "20210301T000000Z")));
-        event.addProperty(new Property("DTSTART", new Value("20210101T080000"), "TZID", "Asia/Shanghai"));
-        event.addProperty(new Property("DTEND", new Value("20210101T090000"), "TZID", "Asia/Shanghai"));
-        event.addProperty(new Property("TRANSP", new Value("OPAQUE")));
-        event.addProperty(new Property("LOCATION", new Value("地点")));
-        event.addProperty(new Property("DESCRIPTION", new Value("重复事件\\n地点\\n2021年1月1日每周重复直到2021年" +
-                "3月1日\\n(2021年1月1日为周五)\\n提醒时间为15分钟前")));
-        event.addProperty(new Property("SEQUENCE", new Value("2")));
-        event.addProperty(new Property("X-MOZ-GENERATION", new Value("2")));
-
-        Assertions.assertEquals(expected, event.toString());
-    }
+    String expected2 =
+            "BEGIN:VALARM\n" +
+                    "ACTION:DISPLAY\n" +
+                    "DESCRIPTION:Default Mozilla Description\n" +
+                    "TRIGGER;VALUE=DATE-TIME:20210103T080000Z\n" +
+                    "END:VALARM";
 
 }

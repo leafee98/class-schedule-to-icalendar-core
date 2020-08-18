@@ -3,7 +3,7 @@ package com.github.leafee98.CSTI.core.ics.model;
 import com.github.leafee98.CSTI.core.ics.Component;
 import com.github.leafee98.CSTI.core.ics.Property;
 
-public class VTimeZone extends Component {
+public class VTimezone extends Component {
 
     public static final String TZID = "TZID";
     public static final String STANDARD = "STANDARD";
@@ -13,7 +13,7 @@ public class VTimeZone extends Component {
     private Standard standard = new Standard();
     private Daylight daylight = new Daylight();
 
-    public VTimeZone() {
+    public VTimezone() {
         super("VTIMEZONE");
     }
 

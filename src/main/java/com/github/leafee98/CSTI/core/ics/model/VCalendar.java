@@ -17,7 +17,7 @@ public class VCalendar extends Component {
 
     private final Property prodId = new Property(PRODID);
     private final Property version = new Property(VERSION);
-    private VTimeZone timeZone = new VTimeZone();
+    private VTimezone timeZone = new VTimezone();
     private final List<VEvent> vEvents = new ArrayList<>();
 
     public VCalendar() {
@@ -34,11 +34,11 @@ public class VCalendar extends Component {
         return version;
     }
 
-    public VTimeZone getTimeZone() {
+    public VTimezone getTimeZone() {
         return timeZone;
     }
 
-    public void setTimeZone(VTimeZone timeZone) {
+    public void setTimeZone(VTimezone timeZone) {
         this.timeZone = timeZone;
     }
 
