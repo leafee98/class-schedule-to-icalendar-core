@@ -3,6 +3,9 @@ package com.github.leafee98.CSTI.core.ics.model;
 import com.github.leafee98.CSTI.core.ics.Component;
 import com.github.leafee98.CSTI.core.ics.Property;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VEvent extends Component {
 
     public static final String CREATED = "CREATED";
@@ -16,16 +19,18 @@ public class VEvent extends Component {
     public static final String LOCATION = "LOCATION";
     public static final String DESCRIPTION = "DESCRIPTION";
 
-    public final Property created = new Property(CREATED);
-    public final Property lastModified = new Property(LAST_MODIFIED);
-    public final Property dtStamp = new Property(DTSTAMP);
-    public final Property uid = new Property(UID);
-    public final Property summary = new Property(SUMMARY);
-    public final Property dtStart = new Property(DTSTART);
-    public final Property dtEnd = new Property(DTEND);
-    public final Property transp = new Property(TRANSP);
-    public final Property location = new Property(LOCATION);
-    public final Property description = new Property(DESCRIPTION);
+    private final Property created = new Property(CREATED);
+    private final Property lastModified = new Property(LAST_MODIFIED);
+    private final Property dtStamp = new Property(DTSTAMP);
+    private final Property uid = new Property(UID);
+    private final Property summary = new Property(SUMMARY);
+    private final Property dtStart = new Property(DTSTART);
+    private final Property dtEnd = new Property(DTEND);
+    private final Property transp = new Property(TRANSP);
+    private final Property location = new Property(LOCATION);
+    private final Property description = new Property(DESCRIPTION);
+
+    private List<VAlarm> vAlarms = new ArrayList<>();
 
     public VEvent() {
         super("VEVENT");
@@ -71,6 +76,13 @@ public class VEvent extends Component {
         return description;
     }
 
+    public List<VAlarm> getVAlarms() {
+        return vAlarms;
+    }
+
+    public void addVAlarm(VAlarm vAlarm) {
+        this.vAlarms.add(vAlarm);
+    }
 
     public boolean isEmpty() {
         return created.isEmpty()
@@ -82,7 +94,8 @@ public class VEvent extends Component {
                 && dtEnd.isEmpty()
                 && transp.isEmpty()
                 && location.isEmpty()
-                && description.isEmpty();
+                && description.isEmpty()
+                && vAlarms.isEmpty();
     }
 
     @Override
@@ -102,6 +115,10 @@ public class VEvent extends Component {
         if (! location.isEmpty()) builder.append(location.toString()).append('\n');
         if (! description.isEmpty()) builder.append(description.toString()).append('\n');
         if (! transp.isEmpty()) builder.append(transp.toString()).append('\n');
+
+        for (VAlarm alarm : vAlarms) {
+            builder.append(alarm).append('\n');
+        }
 
         builder.append("END:").append(getName());
         return builder.toString();
