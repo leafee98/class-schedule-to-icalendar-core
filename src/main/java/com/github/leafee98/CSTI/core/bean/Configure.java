@@ -4,16 +4,40 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.zone.ZoneRulesException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.github.leafee98.CSTI.core.configure.KeyWords;
 import com.github.leafee98.CSTI.core.exceptions.InvalidConfigure;
 
 public class Configure {
 
-    private String eventPrefix;
-    private ZoneId timezone;
-    private int firstDayOfWeek;
+    // default event-summary-format is ``${lessonName}-${location}-${schedule}-${weekInfo}``
+    private String eventSummaryFormat = "${lessonName}-${location}-${schedule}-${weekInfo}";
+
+    // default value of event-description-format
+    private String eventDescriptionFormat =
+            "name:${lessonName}\\n" +
+            "location:${location}\\n" +
+            "teacher:${teacher}\\n" +
+            "type:${lessonType}\\n" +
+            "remark:${remark}\\n" +
+            "schedule:${scheduleFull}";
+
+    // default is system default time zone
+    private ZoneId timezone = ZoneId.systemDefault();
+
+    // default is 0, means Sunday
+    private int firstDayOfWeek = 0;
+
+    // no default, and must occur in config file
     private LocalDate semesterStartDate;
+
+    // reminder time default is before 15 minutes class start
+    private List<String> reminderTime = new ArrayList<>(Collections.singleton("-15m"));
+
+    // no default, and must occur in config file
     private LessonRanges lessonRanges;
 
     public static Configure load(String str) {
@@ -24,15 +48,28 @@ public class Configure {
             lines[i] = lines[i].trim();
 
         for (String line : lines) {
-            if (line.startsWith(KeyWords.eventPrefix)) {
-                // keep white spaces of eventPrefix
-                result.setEventPrefix(line.substring(KeyWords.eventPrefix.length() + 1));
+            if (line.startsWith(KeyWords.eventSummaryFormat)) {
+                // keep white spaces of format description
+                result.setEventSummaryFormat(line.substring(KeyWords.eventSummaryFormat.length() + 1));
+            } else if (line.startsWith(KeyWords.eventDescriptionFormat)) {
+                result.setEventDescriptionFormat(line.substring(KeyWords.eventDescriptionFormat.length() + 1));
             } else if (line.startsWith(KeyWords.firstDayOfWeek)) {
                 result.setFirstDayOfWeek(
                         Integer.parseInt(line.substring(KeyWords.firstDayOfWeek.length() + 1).trim()));
             } else if (line.startsWith(KeyWords.semesterStartDate)) {
                 result.setSemesterStartDate(
                         LocalDate.parse(line.substring(KeyWords.semesterStartDate.length() + 1).trim()));
+            } else if (line.startsWith(KeyWords.reminderTime)) {
+                // get reminder description and remove redundant spaces
+                List<String> reminder = new ArrayList<>();
+                String reminderStr = line.substring(KeyWords.reminderTime.length() + 1).trim();
+                String[] reminderArr = reminderStr.split(",");
+                for (String s : reminderArr) {
+                    String tmp = s.trim();
+                    if (tmp.length() > 0)
+                        reminder.add(tmp);
+                }
+                result.setReminderTime(reminder);
             } else if (line.startsWith(KeyWords.timezone)) {
                 try {
                     ZoneId id = ZoneId.of(line.substring(KeyWords.timezone.length() + 1).trim());
@@ -54,20 +91,52 @@ public class Configure {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        return KeyWords.eventPrefix + ":" + getEventPrefix() + '\n'
-                + KeyWords.timezone + ':' + getTimezone() + '\n'
-                + KeyWords.firstDayOfWeek + ':' + getFirstDayOfWeek() + '\n'
-                + KeyWords.semesterStartDate + ':' + getSemesterStartDate().format(formatter) + '\n'
-                + KeyWords.lessonRanges + ':' + getLessonRanges().toString();
+        StringBuilder builder = new StringBuilder();
 
+        builder.append(KeyWords.eventSummaryFormat).append(':');
+        builder.append(eventSummaryFormat).append('\n');
+
+        builder.append(KeyWords.eventDescriptionFormat).append(':');
+        builder.append(eventDescriptionFormat).append('\n');
+
+        builder.append(KeyWords.timezone).append(':');
+        builder.append(timezone).append('\n');
+
+        builder.append(KeyWords.firstDayOfWeek).append(':');
+        builder.append(firstDayOfWeek).append('\n');
+
+        builder.append(KeyWords.semesterStartDate).append(':');
+        builder.append(semesterStartDate.format(formatter)).append('\n');
+
+        // append list of reminder time with comma split
+        builder.append(KeyWords.reminderTime).append(':');
+        for (String s : reminderTime) {
+            builder.append(s).append(',');
+        }
+        builder.setLength(builder.length() - 1);
+        builder.append('\n');
+
+        // no newline at the end of a string description
+        builder.append(KeyWords.lessonRanges).append(':');
+        builder.append(lessonRanges.toString());
+
+        return builder.toString();
     }
 
-    public String getEventPrefix() {
-        return eventPrefix;
+    public String getEventSummaryFormat() {
+        return eventSummaryFormat;
     }
 
-    public void setEventPrefix(String eventPrefix) {
-        this.eventPrefix = eventPrefix;
+    public void setEventSummaryFormat(String eventSummaryFormat) {
+        this.eventSummaryFormat = eventSummaryFormat;
+    }
+
+    public String getEventDescriptionFormat() {
+        return eventDescriptionFormat;
+    }
+
+    public void setEventDescriptionFormat(String eventDescriptionFormat) {
+        this.eventDescriptionFormat = eventDescriptionFormat;
     }
 
     public ZoneId getTimezone() {
@@ -92,6 +161,14 @@ public class Configure {
 
     public void setSemesterStartDate(LocalDate semesterStartDate) {
         this.semesterStartDate = semesterStartDate;
+    }
+
+    public List<String> getReminderTime() {
+        return reminderTime;
+    }
+
+    public void setReminderTime(List<String> reminderTime) {
+        this.reminderTime = reminderTime;
     }
 
     public LessonRanges getLessonRanges() {

@@ -9,7 +9,12 @@ public class BreakLine {
      * @param input Cschedule configuration without break line
      * @return formatted configuration
      */
+
     public static String doBreak(String input) {
+        return doBreak(input, true);
+    }
+
+    public static String doBreak(String input, boolean eightyCharPerLine) {
         StringBuilder builder = new StringBuilder();
         String[] lines = input.split("\n");
         for (String line : lines) {
@@ -18,6 +23,13 @@ public class BreakLine {
             } else if (line.startsWith(KeyWords.lessonSchedule)) {
                 builder.append(handleLessonSchedule(line));
             } else {
+                if (eightyCharPerLine) {
+                    while (line.length() > 80) {
+                        // break line and start new line with a white space
+                        builder.append(line, 0, 79).append("\n ");
+                        line = line.substring(79);
+                    }
+                }
                 builder.append(line);
             }
             builder.append('\n');

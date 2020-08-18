@@ -9,10 +9,13 @@ public class ConfigureTest {
 
     @Test
     public void testLoad() {
-        String expected = "event-prefix:课-\n"
+        String expected =
+                "event-summary-format:lesson${lessonName}location${location}-${schedule}${teacher}\n"
+                + "event-description-format:\n"
                 + "timezone:Asia/Shanghai\n"
                 + "first-day-of-week:0\n"
                 + "semester-start-date:2020-02-21\n"
+                + "reminder-time:-15m\n"
                 + "lesson-ranges:\n"
                 + " 1=08:00:00-08:45:00,\n"
                 + " 2=08:50:00-09:35:00,\n"
@@ -26,10 +29,13 @@ public class ConfigureTest {
                 + " 10=18:30:00-19:15:00,\n"
                 + " 11=19:20:00-20:05:00,\n"
                 + " 12=20:10:00-20:55:00\n";
-        String input = "event-prefix:课- \n"
-                + "timezone: Asia/Shanghai \n"
-                + "first-day-of-week: 0\n"
+        String input =
+                "event-summary-format:lesson${lessonName}location${location}-${schedule}${teacher}\n"
+                + "event-description-format:\n"
+                + "timezone:Asia/Shanghai\n"
+                + "first-day-of-week:0\n"
                 + "semester-start-date:2020-02-21\n"
+                + "reminder-time:-15m\n"
                 + "lesson-ranges: \n"
                 + "  1=08:00:00-08:45:00, \n"
                 + " 2= 08:50:00-09:35:00,\n"
@@ -48,7 +54,7 @@ public class ConfigureTest {
 
         String directOut = configure.toString();
 
-        String finalOut = BreakLine.doBreak(directOut);
+        String finalOut = BreakLine.doBreak(directOut, false);
 
         Assertions.assertEquals(expected, finalOut);
     }

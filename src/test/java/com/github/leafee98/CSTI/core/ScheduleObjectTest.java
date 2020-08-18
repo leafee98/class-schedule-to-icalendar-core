@@ -10,10 +10,12 @@ public class ScheduleObjectTest {
     @Test
     public void test() {
         String input = "[[[\n" +
-                "event-prefix:课-\n" +
+                "event-summary-format:lesson${lessonName}location${location}-${schedule}${teacher}\n" +
+                "event-description-format:\n" +
                 "timezone:Asia/Shanghai\n" +
                 "first-day-of-week:0\n" +
                 "semester-start-date:2020-02-21\n" +
+                "reminder-time:-15m\n" +
                 "lesson-ranges:\n" +
                 " 1=08:00:00-08:45:00,\n" +
                 " 2=08:50:00-09:35:00,\n" +
@@ -40,7 +42,7 @@ public class ScheduleObjectTest {
                 ">>>\n";
 
         ScheduleObject obj = ScheduleObject.load(BreakLine.recovery(input));
-        Assertions.assertEquals(input, BreakLine.doBreak(obj.toString()));
+        Assertions.assertEquals(input, BreakLine.doBreak(obj.toString(), false));
     }
 
 }
