@@ -16,7 +16,7 @@ public class TimeFormatter {
     }
 
     /**
-     * get string "19700101T000000Z" from datetime 19700101T080000 at Asia/Shanghai
+     * get string "19700101T000000Z" from local datetime 19700101T080000 at timezone
      * @param dateTime local datetime
      * @return string formatted as "yyyyMMddThhmmssZ"
      */

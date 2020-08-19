@@ -1,22 +1,62 @@
 package com.github.leafee98.CSTI.core;
 
+import java.io.*;
 import java.time.LocalTime;
 
 import com.github.leafee98.CSTI.core.bean.LessonRanges;
+import com.github.leafee98.CSTI.core.bean.ScheduleObject;
+import com.github.leafee98.CSTI.core.generate.Generator;
 import com.github.leafee98.CSTI.core.utils.LocalTimeRange;
+import com.github.leafee98.CSTI.core.wrapper.schedule.BreakLine;
 
 public class App {
 
-    public static void main(String[] args) {
-        LocalTimeRange range1 = new LocalTimeRange(LocalTime.of(22, 3, 9), LocalTime.now());
-        LocalTimeRange range2 = new LocalTimeRange(LocalTime.of(22, 3, 9), LocalTime.now());
-        LocalTimeRange range3 = new LocalTimeRange(LocalTime.of(22, 3, 9), LocalTime.now());
+    private static final String paramIn = "-i";
+    private static final String paramOut = "-o";
 
-        LessonRanges lessonRanges = new LessonRanges();
-        lessonRanges.addRange(range1);
-        lessonRanges.addRange(range2);
-        lessonRanges.addRange(range3);
+    private static String inputPath = "-";
+    private static String outputPath = "-";
 
-        System.out.println(lessonRanges.toString());
+    private static InputStream input;
+    private static OutputStream output;
+
+    private static void parseParameter(String[] args) {
+        for (int i = 0; i < args.length; ++i) {
+            if (args[i].equals(paramIn)) {
+                inputPath = args[++i];
+            } else if (args[i].equals(paramOut)) {
+                outputPath = args[++i];
+            }
+        }
+    }
+
+    private static void initIO() throws FileNotFoundException {
+        if (inputPath.equals("-")) {
+            input = System.in;
+        } else {
+            input = new FileInputStream(inputPath);
+        }
+
+        if (outputPath.equals("-")) {
+            output = System.out;
+        } else {
+            output = new FileOutputStream(outputPath);
+        }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        parseParameter(args);
+
+        initIO();
+
+        String confContent = new String(input.readAllBytes());
+
+        ScheduleObject scheduleObj = ScheduleObject.load(BreakLine.recovery(confContent));
+
+        Generator generator = new Generator(scheduleObj);
+
+        String result = generator.generate().toString();
+
+        output.write(result.getBytes());
     }
 }

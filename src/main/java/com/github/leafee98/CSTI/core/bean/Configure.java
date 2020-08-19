@@ -13,8 +13,8 @@ import com.github.leafee98.CSTI.core.exceptions.InvalidConfigure;
 
 public class Configure {
 
-    // default event-summary-format is ``${lessonName}-${location}-${schedule}-${weekInfo}``
-    private String eventSummaryFormat = "${lessonName}-${location}-${schedule}-${weekInfo}";
+    // default event-summary-format is ``${lessonName}-${location}``
+    private String eventSummaryFormat = "${lessonName}-${location}";
 
     // default value of event-description-format
     private String eventDescriptionFormat =
@@ -54,8 +54,9 @@ public class Configure {
             } else if (line.startsWith(KeyWords.eventDescriptionFormat)) {
                 result.setEventDescriptionFormat(line.substring(KeyWords.eventDescriptionFormat.length() + 1));
             } else if (line.startsWith(KeyWords.firstDayOfWeek)) {
-                result.setFirstDayOfWeek(
-                        Integer.parseInt(line.substring(KeyWords.firstDayOfWeek.length() + 1).trim()));
+                // take 0 as Sunday
+                int dow = Integer.parseInt(line.substring(KeyWords.firstDayOfWeek.length() + 1).trim());
+                result.setFirstDayOfWeek(dow % 7);
             } else if (line.startsWith(KeyWords.semesterStartDate)) {
                 result.setSemesterStartDate(
                         LocalDate.parse(line.substring(KeyWords.semesterStartDate.length() + 1).trim()));
@@ -84,7 +85,18 @@ public class Configure {
             }
         }
 
+        // check, throw exception if failed
+        result.checkSemesterStartDate();
+
         return result;
+    }
+
+    private void checkSemesterStartDate() {
+        if (semesterStartDate.getDayOfWeek().getValue() % 7 != firstDayOfWeek) {
+            throw new InvalidConfigure("semester-start-date is not compatible with first-day-of-week\n" +
+                    "it's " + getSemesterStartDate().getDayOfWeek().name() + " on " +
+                    getSemesterStartDate());
+        }
     }
 
     @Override

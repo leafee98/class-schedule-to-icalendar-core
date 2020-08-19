@@ -15,6 +15,7 @@ public class VEvent extends Component {
     public static final String SUMMARY = "SUMMARY";
     public static final String DTSTART = "DTSTART";
     public static final String DTEND = "DTEND";
+    public static final String RRULE = "RRULE";
     public static final String TRANSP = "TRANSP";
     public static final String LOCATION = "LOCATION";
     public static final String DESCRIPTION = "DESCRIPTION";
@@ -26,11 +27,12 @@ public class VEvent extends Component {
     private final Property summary = new Property(SUMMARY);
     private final Property dtStart = new Property(DTSTART);
     private final Property dtEnd = new Property(DTEND);
+    private final Property rRule = new Property(RRULE);
     private final Property transp = new Property(TRANSP);
     private final Property location = new Property(LOCATION);
     private final Property description = new Property(DESCRIPTION);
 
-    private List<VAlarm> vAlarms = new ArrayList<>();
+    private final List<VAlarm> vAlarms = new ArrayList<>();
 
     public VEvent() {
         super("VEVENT");
@@ -64,6 +66,10 @@ public class VEvent extends Component {
         return dtEnd;
     }
 
+    public Property getRRule() {
+        return rRule;
+    }
+
     public Property getTransp() {
         return transp;
     }
@@ -80,10 +86,6 @@ public class VEvent extends Component {
         return vAlarms;
     }
 
-    public void addVAlarm(VAlarm vAlarm) {
-        this.vAlarms.add(vAlarm);
-    }
-
     public boolean isEmpty() {
         return created.isEmpty()
                 && lastModified.isEmpty()
@@ -92,6 +94,7 @@ public class VEvent extends Component {
                 && summary.isEmpty()
                 && dtStart.isEmpty()
                 && dtEnd.isEmpty()
+                && rRule.isEmpty()
                 && transp.isEmpty()
                 && location.isEmpty()
                 && description.isEmpty()
@@ -112,6 +115,7 @@ public class VEvent extends Component {
         if (! summary.isEmpty()) builder.append(summary.toString()).append('\n');
         if (! dtStart.isEmpty()) builder.append(dtStart.toString()).append('\n');
         if (! dtEnd.isEmpty()) builder.append(dtEnd.toString()).append('\n');
+        if (! rRule.isEmpty()) builder.append(rRule.toString()).append('\n');
         if (! location.isEmpty()) builder.append(location.toString()).append('\n');
         if (! description.isEmpty()) builder.append(description.toString()).append('\n');
         if (! transp.isEmpty()) builder.append(transp.toString()).append('\n');

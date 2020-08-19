@@ -13,7 +13,7 @@ public class ScheduleObjectTest {
                 "event-summary-format:lesson${lessonName}location${location}-${schedule}${teacher}\n" +
                 "event-description-format:\n" +
                 "timezone:Asia/Shanghai\n" +
-                "first-day-of-week:0\n" +
+                "first-day-of-week:5\n" +
                 "semester-start-date:2020-02-21\n" +
                 "reminder-time:-15m\n" +
                 "lesson-ranges:\n" +

@@ -41,8 +41,8 @@ public class ScheduleObject {
 
             lessons.add(Lesson.load(str.substring(lessonBegin + KeyWords.lessonBegin.length() + 1, lessonEnd)));
 
-            lessonBegin = str.substring(lessonBegin + KeyWords.lessonBegin.length()).indexOf(KeyWords.lessonBegin);
-            lessonEnd = str.substring(lessonEnd + KeyWords.lessonEnd.length()).indexOf(KeyWords.lessonEnd);
+            lessonBegin = str.indexOf(KeyWords.lessonBegin, lessonBegin + KeyWords.lessonBegin.length());
+            lessonEnd = str.indexOf(KeyWords.lessonEnd, lessonEnd + KeyWords.lessonEnd.length());
         }
 
         result.setConfigure(Configure.load(str.substring(confBegin + KeyWords.confBegin.length() + 1, confEnd)));

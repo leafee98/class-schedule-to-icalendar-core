@@ -4,7 +4,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +33,10 @@ public class LessonRanges {
 
         for (String str : list) {
             str = str.trim();
+
+            if (str.length() <= 0)
+                continue;
+
             // str: 1=01:00:00-01:40:00
             String[] components = str.split("[=-]");
 
