@@ -23,7 +23,7 @@ public class TimeFormatter {
     public String utc(LocalDateTime dateTime) {
         ZonedDateTime local = dateTime.atZone(zoneId);
         ZonedDateTime utc= local.withZoneSameInstant(ZoneId.of("UTC"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'hhmmss'Z'");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
         return formatter.format(utc);
     }
 
@@ -33,7 +33,7 @@ public class TimeFormatter {
      * @return string formatted as "yyyyMMddThhmmss"
      */
     public String local(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'hhmmss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
         return formatter.format(dateTime);
     }
 
