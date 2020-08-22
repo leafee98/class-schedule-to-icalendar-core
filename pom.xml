@@ -6,7 +6,7 @@
 
   <groupId>com.github.leafee98</groupId>
   <artifactId>class-schedule-to-icalendar-core</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>v0.0.2</version>
 
   <name>class schedule to icalendar core</name>
 
