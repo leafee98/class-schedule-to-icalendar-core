@@ -26,6 +26,10 @@
 
 如果 `<input file>` 或 `<output file>` 值为短横线或未设置命令行参数, 则表示采用标准输入/输出流.
 
+## 示例
+
+见目录[`/doc/example/`](!https://github.com/leafee98/class-schedule-to-icalendar-core/tree/master/doc/example)
+
 ## 待办
 
 [ ] 修正转义不完善的问题(针对`\$`等转义字符)
