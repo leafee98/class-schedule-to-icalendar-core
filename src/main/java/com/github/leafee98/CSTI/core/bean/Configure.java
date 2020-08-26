@@ -28,8 +28,9 @@ public class Configure {
     // default is system default time zone
     private ZoneId timezone = ZoneId.systemDefault();
 
-    // default is 0, means Sunday
-    private int firstDayOfWeek = 0;
+    // default unset, init when loading from configure file
+    // use day of semesterStartDate if not present in configure file
+    private int firstDayOfWeek = -1;
 
     // no default, and must occur in config file
     private LocalDate semesterStartDate;
@@ -50,16 +51,30 @@ public class Configure {
         for (String line : lines) {
             if (line.startsWith(KeyWords.eventSummaryFormat)) {
                 // keep white spaces of format description
-                result.setEventSummaryFormat(line.substring(KeyWords.eventSummaryFormat.length() + 1));
+                String tmp = line.substring(KeyWords.eventSummaryFormat.length() + 1);
+                if (tmp.trim().length() != 0) {
+                    result.setEventSummaryFormat(tmp);
+                }
+                // result.setEventSummaryFormat(line.substring(KeyWords.eventSummaryFormat.length() + 1));
             } else if (line.startsWith(KeyWords.eventDescriptionFormat)) {
-                result.setEventDescriptionFormat(line.substring(KeyWords.eventDescriptionFormat.length() + 1));
+                String tmp = line.substring(KeyWords.eventDescriptionFormat.length() + 1);
+                if (tmp.trim().length() != 0) {
+                    result.setEventDescriptionFormat(tmp);
+                }
+                // result.setEventDescriptionFormat(line.substring(KeyWords.eventDescriptionFormat.length() + 1));
             } else if (line.startsWith(KeyWords.firstDayOfWeek)) {
                 // take 0 as Sunday
-                int dow = Integer.parseInt(line.substring(KeyWords.firstDayOfWeek.length() + 1).trim());
-                result.setFirstDayOfWeek(dow % 7);
+                String tmp = line.substring(KeyWords.firstDayOfWeek.length() + 1).trim();
+                if (tmp.length() != 0) {
+                    int dow = Integer.parseInt(tmp);
+                    result.setFirstDayOfWeek(dow % 7);
+                }
             } else if (line.startsWith(KeyWords.semesterStartDate)) {
                 result.setSemesterStartDate(
                         LocalDate.parse(line.substring(KeyWords.semesterStartDate.length() + 1).trim()));
+                if (result.getFirstDayOfWeek() < 0) {
+                    result.setFirstDayOfWeek(result.getSemesterStartDate().getDayOfWeek().getValue());
+                }
             } else if (line.startsWith(KeyWords.reminderTime)) {
                 // get reminder description and remove redundant spaces
                 List<String> reminder = new ArrayList<>();

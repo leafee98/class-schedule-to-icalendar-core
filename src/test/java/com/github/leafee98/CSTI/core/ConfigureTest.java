@@ -11,7 +11,7 @@ public class ConfigureTest {
     public void testLoad() {
         String expected =
                 "event-summary-format:lesson${lessonName}location${location}-${schedule}${teacher}\n"
-                + "event-description-format:\n"
+                + "event-description-format:name:${lessonName}\\nlocation:${location}\\nteacher:${teacher}\\ntype:${lessonType}\\nremark:${remark}\\nschedule:${scheduleFull}\n"
                 + "timezone:Asia/Shanghai\n"
                 + "first-day-of-week:5\n"
                 + "semester-start-date:2020-02-21\n"
