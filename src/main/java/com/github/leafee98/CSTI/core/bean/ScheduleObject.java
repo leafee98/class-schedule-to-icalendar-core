@@ -11,7 +11,7 @@ public class ScheduleObject {
     private List<Lesson> lessons;
     private Configure configure;
 
-    ScheduleObject() {
+    public ScheduleObject() {
     }
 
     public static ScheduleObject load(String str) {

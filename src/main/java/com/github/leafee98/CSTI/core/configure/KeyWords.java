@@ -17,6 +17,9 @@ public class KeyWords {
     public static final String lessonRanges = "lesson-ranges";
     public static final String reminderTime = "reminder-time";
 
+    public static final String global = "global";
+    public static final String lessons = "lessons";
+
     public static final String confBegin = "[[[";
     public static final String confEnd = "]]]";
     public static final String lessonBegin = "<<<";

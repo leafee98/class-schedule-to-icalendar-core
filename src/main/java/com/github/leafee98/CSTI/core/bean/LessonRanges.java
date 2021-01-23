@@ -88,6 +88,10 @@ public class LessonRanges {
         return ranges.get(i - 1);
     }
 
+    public int size() {
+        return ranges.size();
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
