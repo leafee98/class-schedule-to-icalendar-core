@@ -1,0 +1,55 @@
+{
+    "global": {
+        "event-summary-format": "${lessonName}-${location}",
+        "event-description-format": "name:${lessonName}\nlocation:${location}\nteacher:${teacher}\ntype:${lessonType}\nremark:${remark}\nschedule:${scheduleFull}",
+        "timezone": "Asia/Shanghai",
+        "first-day-of-week": 1,
+        "semester-start-date": "2020-02-24",
+        "reminder-time": ["-15m"],
+        "lesson-ranges": [
+            "1=08:00:00-08:45:00",
+            "2=08:50:00-09:35:00",
+            "3=09:50:00-10:35:00",
+            "4=10:40:00-11:25:00",
+            "5=11:30:00-12:15:00",
+            "6=13:30:00-14:15:00",
+            "7=14:20:00-15:05:00",
+            "8=15:20:00-16:05:00",
+            "9=16:10:00-16:55:00",
+            "10=18:30:00-19:15:00",
+            "11=19:20:00-20:05:00",
+            "12=20:10:00-20:55:00"
+        ]
+    },
+    "lessons": [ {
+            "name": "软件测试技术",
+            "type": "专业必修",
+            "teacher": "某教师",
+            "location": "某位置",
+            "remark": "暂无",
+            "schedule": [
+                "1-14|1|6-9"
+            ]
+        },
+        {
+            "name": "软件项目管理",
+            "type": "专业必修",
+            "teacher": "某教师b",
+            "location": "某位置b",
+            "remark": "没有",
+            "schedule": [
+                "1-11|2|3-5"
+            ]
+        },
+        {
+            "name": "软件测试实践",
+            "type": "实践选修",
+            "teacher": "某教师c",
+            "location": "某位置c",
+            "remark": "无",
+            "schedule":[
+                "1,3,5,7,9,11,13,15|2|8-9"
+            ]
+        }
+    ]
+}

@@ -6,7 +6,9 @@
 
 ## 课程表定义文件(试验阶段, 未来有可能会进行格式上的修改)
 
-见[csti-define.md](/doc/csti-define.md)
+见[csti-define.md](/doc/csti-define(csti-define(deprecated).md))(Deprecated), 预计在 0.1.0 版本移除.
+
+新加入的课程表描述格式为 JSON , 其格式描述见 [csti-json](doc/csti-json.md), 在直接运行编译后的应用时, 此描述格式尚未起作用.
 
 ## 特征
 
