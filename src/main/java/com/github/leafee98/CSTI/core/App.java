@@ -1,12 +1,12 @@
 package com.github.leafee98.CSTI.core;
 
 import java.io.*;
-import java.time.LocalTime;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
-import com.github.leafee98.CSTI.core.bean.LessonRanges;
 import com.github.leafee98.CSTI.core.bean.ScheduleObject;
+import com.github.leafee98.CSTI.core.bean.loader.JSONLoader;
 import com.github.leafee98.CSTI.core.generate.Generator;
-import com.github.leafee98.CSTI.core.utils.LocalTimeRange;
 import com.github.leafee98.CSTI.core.wrapper.schedule.BreakLine;
 
 public class App {
@@ -44,17 +44,16 @@ public class App {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws IOException {
         parseParameter(args);
-
         initIO();
 
-        String confContent = new String(input.readAllBytes());
+        String confContent = new String(input.readAllBytes(), StandardCharsets.UTF_8);
 
-        ScheduleObject scheduleObj = ScheduleObject.load(BreakLine.recovery(confContent));
+        JSONLoader loader = new JSONLoader();
+        ScheduleObject scheduleObj = loader.load(confContent);
 
         Generator generator = new Generator(scheduleObj);
-
         String result = generator.generate().toString();
 
         output.write(result.getBytes());
