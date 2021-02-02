@@ -34,10 +34,9 @@ lessons: [lessons 数组](#lessons-数组)
 
 描述课程表的全局配置, 包括生成日历的事件描述格式和时区以及课程时间相关的配置.
 
-
 |属性|描述|
 |---|---|
-| `event-summary-format` | 字符串, 描述生成的事件的名称, 支持[变量代换](#变量代换).
+| `event-summary-format` | 字符串, 描述生成的事件的名称, 支持[变量代换](#变量代换).|
 | `event-description-format` | 字符串, 描述生成的事件的详细描述, 支持[变量代换](#变量代换).
 | `timezone` | 字符串, 描述时区, 要求是能够被 Java 识别的字符串.|
 | `first-day-of-week` | 整数, 范围 `[0-7]`, `0` 和 `7` 都表示星期日.|
@@ -48,6 +47,16 @@ lessons: [lessons 数组](#lessons-数组)
 > `lesson-ranges` 中一个字符串的样例:
 > 
 > `1=08:00:00-08:45:00`, 表示每天的第 `1` 节课自 `08:00:00` 开始, 直到 `08:45:00` 时下课.
+
+|属性|默认值|
+|---|---|
+|`event-summary-format`|`"${lessonName}-${location}"`|
+|`event-description-format`|`"name:${lessonName}\nlocation:${location}\nteacher:${teacher}\ntype:${lessonType}\nremark:${remark}\nschedule:${scheduleFull}"`|
+|`timezone`|`Asia/Shanghai`|
+|`first-day-of-week`|`1`|
+|`semester-start-date`|无(必填)|
+|`reminder-time`|`-15m`|
+|`lesson-ranges`|无(必填)|
 
 ### lessons 数组
 
@@ -65,14 +74,14 @@ lessons: [lessons 数组](#lessons-数组)
     ]
 }
 ```
-|属性|描述
-|---|---|
-| `name` | 字符串, 描述课程名称.|
-| `type` | 字符串, 描述课程的类型, 如专业选修课/专业必修课.|
-| `teacher` | 字符串, 该课程的任课教师.|
-| `location` | 字符串, 描述上课位置.|
-| `remark` | 字符串, 备注, 用来记录一些其他的信息.|
-| `schedule` | JSON 数组, 每个元素为一个字符串, 描述上课的周次/星期几/课程的起止节数. 具体格式为 `周次|星期几|课程起止节数` , 三个区域分别可以使用逗号分隔符表示单独添加, 或使用连字符表示范围. 字符串可以有多个, 描述多个不同的规则.|
+|属性|描述|默认值|
+|---|---|---|
+| `name` | 字符串, 描述课程名称.|无(必填)|
+| `type` | 字符串, 描述课程的类型, 如专业选修课/专业必修课.|`""`|
+| `teacher` | 字符串, 该课程的任课教师.|`""`|
+| `location` | 字符串, 描述上课位置.|`""`|
+| `remark` | 字符串, 备注, 用来记录一些其他的信息.|`""`|
+| `schedule` | JSON 数组, 每个元素为一个字符串, 描述上课的周次/星期几/课程的起止节数. 具体格式为 `周次|星期几|课程起止节数` , 三个区域分别可以使用逗号分隔符表示单独添加, 或使用连字符表示范围. 字符串可以有多个, 描述多个不同的规则.|无(必填)
 
 > 字符串中使用逗号或连字符的例子:
 > 
