@@ -37,7 +37,7 @@ public class LessonDateTimeCalculator {
 
         for (LessonSchedule schedule : schedules) {
             for (int week : schedule.getWeeks()) {
-                LocalDate firstDay = semesterStartDate.plusDays((week - 1) * 7);
+                LocalDate firstDay = semesterStartDate.plusDays((week - 1) * 7L);
                 for (int day : schedule.getDayOfWeek()) {
                     LocalDate lessonDay = firstDay.plusDays(calDayOffset(day));
 
