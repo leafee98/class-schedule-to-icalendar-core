@@ -1,10 +1,10 @@
 package com.github.leafee98.CSTI.core.ics;
 
 import com.github.leafee98.CSTI.core.exceptions.InvalidComponentParams;
+import com.github.leafee98.CSTI.core.utils.CharacterEscape;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Parameters put in this object will keep its origin order.
@@ -54,6 +54,25 @@ public class Value {
                 return "";
         } else {
             builder.append(value);
+            return builder.toString();
+        }
+    }
+
+    public String toStringEscape() {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<String, String> entry : parameters.entrySet()) {
+            builder.append(entry.getKey());
+            builder.append('=');
+            builder.append(entry.getValue());
+            builder.append(';');
+        }
+        if (value == null || value.length() == 0) {
+            if (builder.length() > 0)
+                return builder.substring(0, builder.length() - 1);
+            else
+                return "";
+        } else {
+            builder.append(CharacterEscape.escape(value));
             return builder.toString();
         }
     }

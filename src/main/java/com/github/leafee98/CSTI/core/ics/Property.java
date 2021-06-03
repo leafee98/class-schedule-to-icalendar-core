@@ -6,6 +6,15 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Property {
+    public static final String SUMMARY = "SUMMARY";
+    public static final String DESCRIPTION = "DESCRIPTION";
+    public static final String LOCATION = "LOCATION";
+    public static final String ACTION = "ACTION";
+    public static final String TRANSP = "TRANSP";
+    public static final String PRODID = "PRODID";
+    public static final String TZID = "TZID";
+    public static final String TZNAME = "TZNAME";
+    public static final String UID = "UID";
 
     private final String name;
     private final Map<String, String> parameters = new TreeMap<>();
@@ -37,6 +46,9 @@ public class Property {
 
     @Override
     public String toString() {
+
+
+
         StringBuilder builder = new StringBuilder(name);
 
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
@@ -47,7 +59,20 @@ public class Property {
         }
 
         builder.append(':');
-        builder.append(value);
+
+        // escape value or not
+        if (this.name.equals(SUMMARY)
+                || this.name.equals(DESCRIPTION)
+                || this.name.equals(LOCATION)
+                || this.name.equals(ACTION)
+                || this.name.equals(TRANSP)
+                || this.name.equals(PRODID)
+                || this.name.equals(TZID)
+                || this.name.equals(TZNAME)
+                || this.name.equals(UID))
+            builder.append(value.toStringEscape());
+        else
+            builder.append(value);
 
         return builder.toString();
     }
